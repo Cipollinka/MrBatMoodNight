@@ -1,5 +1,12 @@
-import React from 'react';
-import {Image, SafeAreaView, StyleSheet} from 'react-native';
+import {useCommonStore} from '@/stores/commonStore';
+import React, {useEffect} from 'react';
+import {
+  AppState,
+  AppStateStatus,
+  Image,
+  SafeAreaView,
+  StyleSheet,
+} from 'react-native';
 
 const backgrounds = {
   greetings: require('@/assets/images/backgrounds/greetings-bg.png'),
@@ -18,6 +25,27 @@ interface Props {
 }
 
 export default function Container({children, bg = 'greetings', ok}: Props) {
+  const checkDayChange = useCommonStore(state => state.checkDayChange);
+
+  useEffect(() => {
+    checkDayChange();
+
+    const handleAppStateChange = (nextAppState: AppStateStatus) => {
+      if (nextAppState === 'active') {
+        checkDayChange();
+      }
+    };
+
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, [checkDayChange]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Image

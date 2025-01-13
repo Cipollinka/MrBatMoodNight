@@ -12,9 +12,9 @@ import {Moods} from '@/models/common';
 import Sound from 'react-native-sound';
 
 const musicPaths = {
-  Mystical: '333221__hdfreema__night-crickets-back-porch.aiff',
-  Quite: '412941__i_luv_soundz__lake-at-night-2.aiff',
-  Starry: '687212__traviow__frogs-at-night-lots-of-them.aiff',
+  Mystical: 'mystical.mp3',
+  Quite: 'quite.mp3',
+  Starry: 'starry.mp3',
 };
 
 const bgToMood = {
@@ -27,7 +27,6 @@ export default function MoodMeditation() {
   const nav = useNav();
   const currentMood = useCommonStore(state => state.currentMood);
   const label = MOOD_LABELS?.[currentMood] || 'Mystical night';
-
   const [sound, setSound] = useState<Sound | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
