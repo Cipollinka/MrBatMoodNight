@@ -8,12 +8,9 @@ export enum Screens {
   Mood_Select = 'Mood_Select',
   Mood_Loading = 'Mood_Loading',
   Mood_Timeline = 'Mood_Timeline',
-  Mood_Meditation = 'Mood_Meditation',
-  Mood_NightStory = 'Mood_NightStory',
   Mood_Track = 'Mood_Track',
   Mood_Finish = 'Mood_Finish',
 
-  Bookmark = 'Bookmark',
   Profile = 'Profile',
 }
 
@@ -25,12 +22,8 @@ export type ParamsList = {
   [Screens.Mood_Select]: undefined;
   [Screens.Mood_Loading]: undefined;
   [Screens.Mood_Timeline]: {step: number} | undefined;
-  [Screens.Mood_Meditation]: undefined;
-  [Screens.Mood_NightStory]: undefined;
   [Screens.Mood_Track]: undefined;
   [Screens.Mood_Finish]: undefined;
-
-  [Screens.Bookmark]: undefined;
 
   [Screens.Profile]: undefined;
 };

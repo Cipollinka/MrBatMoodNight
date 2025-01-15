@@ -30,15 +30,9 @@ const AppNavigator = () => {
         <Stack.Screen name={Screens.Mood_Select} component={MoodSelect} />
         <Stack.Screen name={Screens.Mood_Loading} component={MoodLoading} />
         <Stack.Screen name={Screens.Mood_Timeline} component={MoodTimeline} />
-        <Stack.Screen
-          name={Screens.Mood_Meditation}
-          component={MoodMeditation}
-        />
-        <Stack.Screen name={Screens.Mood_NightStory} component={MoodStory} />
+
         <Stack.Screen name={Screens.Mood_Track} component={MoodTracker} />
         <Stack.Screen name={Screens.Mood_Finish} component={MoodFinish} />
-
-        <Stack.Screen name={Screens.Bookmark} component={Saved} />
 
         <Stack.Screen name={Screens.Profile} component={Profile} />
       </Stack.Navigator>

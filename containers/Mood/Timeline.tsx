@@ -14,21 +14,21 @@ import Bottom from '@/components/common/Bottom';
 import FinishIcon from '../../assets/icons/finish.svg';
 
 const options = [
+  // {
+  //   label: 'Start Meditation',
+  //   value: 1,
+  // },
+  // {
+  //   label: 'Night story',
+  //   value: 2,
+  // },
   {
-    label: 'Start Meditation',
+    label: 'Mood Tracker',
     value: 1,
   },
   {
-    label: 'Night story',
-    value: 2,
-  },
-  {
-    label: 'Mood Tracker',
-    value: 3,
-  },
-  {
     label: 'Go to sleep',
-    value: 4,
+    value: 2,
   },
 ];
 
@@ -54,11 +54,11 @@ export default function MoodTimeline({route}: any) {
 
   const getStepLabel = () => {
     switch (currentStep) {
+      // case 1:
+      //   return 'Start Meditation';
+      // case 2:
+      //   return 'Read night story';
       case 1:
-        return 'Start Meditation';
-      case 2:
-        return 'Read night story';
-      case 3:
         return 'Track your mood';
       default:
         return '';
@@ -67,13 +67,13 @@ export default function MoodTimeline({route}: any) {
 
   const handlePress = () => {
     switch (currentStep) {
+      // case 1:
+      //   navigation.navigate(Screens.Mood_Meditation);
+      //   break;
+      // case 2:
+      //   navigation.navigate(Screens.Mood_NightStory);
+      //   break;
       case 1:
-        navigation.navigate(Screens.Mood_Meditation);
-        break;
-      case 2:
-        navigation.navigate(Screens.Mood_NightStory);
-        break;
-      case 3:
         navigation.navigate(Screens.Mood_Track);
         break;
     }
@@ -88,7 +88,7 @@ export default function MoodTimeline({route}: any) {
           <View
             style={{
               width: 1,
-              height: 200,
+              height: 50,
               borderWidth: 1,
               borderStyle: 'dashed',
               position: 'absolute',
