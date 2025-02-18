@@ -27,7 +27,7 @@ export default function Third() {
 
         <View style={{gap: 8, marginTop: 8, marginBottom: 0}}>
           <Button title="Let's Begin" onPress={skip} />
-          <Button variant="secondary" title="Skip" onPress={skip} />
+          <Button variant="link" title="Skip" onPress={skip} />
         </View>
       </Bottom>
     </Container>

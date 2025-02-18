@@ -84,7 +84,7 @@ export default function Profile() {
         </View>
 
         <View style={{marginBottom: 50}}>
-          <Button title="Share" onPress={handleShare} />
+          <Button title="Share" variant="secondary" onPress={handleShare} />
         </View>
 
         <BottomBar />

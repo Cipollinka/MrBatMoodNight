@@ -24,7 +24,7 @@ export default function First() {
   return (
     <Container>
       <Bottom>
-        <Title>Welcome to Mr.Bat: Mood of the Night</Title>
+        <Title>Welcome to Mr.Bat: Night Vibes</Title>
         <Text style={{textAlign: 'center', maxWidth: 300}} fs={17}>
           Discover serenity under the stars. Let’s create the perfect nighttime
           mood together.
@@ -35,7 +35,7 @@ export default function First() {
             title="Get Started"
             onPress={() => navigation.navigate(Screens.Greetings_Second)}
           />
-          <Button variant="secondary" title="Skip" onPress={skip} />
+          <Button variant="link" title="Skip" onPress={skip} />
         </View>
       </Bottom>
     </Container>

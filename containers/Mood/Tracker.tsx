@@ -9,6 +9,7 @@ import {useNav} from '@/hooks/useNav';
 import {Screens} from '@/models/nav';
 import {useCommonStore} from '@/stores/commonStore';
 import {Tracker} from '@/models/common';
+import Block from '@/components/common/Block';
 
 const options = [
   {
@@ -41,7 +42,7 @@ export default function MoodTracker() {
 
   return (
     <Container>
-      <Bottom>
+      <Block style={{marginVertical: 'auto'}}>
         <Title>Mood Tracker</Title>
 
         <Text
@@ -69,7 +70,7 @@ export default function MoodTracker() {
         <View style={{marginTop: 24}}>
           <Button title="Save" onPress={handleSave} />
         </View>
-      </Bottom>
+      </Block>
     </Container>
   );
 }
@@ -79,12 +80,11 @@ const styles = StyleSheet.create({
     width: 300,
     height: 58,
     borderRadius: 52,
-    backgroundColor: '#57A9FF33',
+    backgroundColor: '#57A9FF',
     justifyContent: 'center',
     alignItems: 'center',
   },
   selectedItem: {
-    borderWidth: 3,
-    borderColor: '#57A9FF',
+    backgroundColor: '#7EBD57',
   },
 });

@@ -20,9 +20,9 @@
 		82529B131F9C4962B6EA3C12 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63FF5D8350734495A4FB9B57 /* Montserrat-Medium.ttf */; };
 		9496850EBFD44FB98D2AC6F4 /* Montserrat-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B77E20EBDD84E42B13A00D1 /* Montserrat-ExtraBold.ttf */; };
 		A00CF62CFA4A424A90D3DC9F /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B4D1085A43E409EB1033C2D /* Montserrat-Bold.ttf */; };
-		C43D427E2D303BDD00E3336A /* quite.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C43D427C2D303BDD00E3336A /* quite.mp3 */; };
-		C43D427F2D303BDD00E3336A /* starry.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C43D427D2D303BDD00E3336A /* starry.mp3 */; };
-		C43D42802D303BDD00E3336A /* mystical.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C43D427B2D303BDD00E3336A /* mystical.mp3 */; };
+		C46F5D8D2D5C9CCC0050254D /* mystical.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C46F5D8A2D5C9CCC0050254D /* mystical.mp3 */; };
+		C46F5D8E2D5C9CCC0050254D /* quite.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C46F5D8B2D5C9CCC0050254D /* quite.mp3 */; };
+		C46F5D8F2D5C9CCC0050254D /* starry.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C46F5D8C2D5C9CCC0050254D /* starry.mp3 */; };
 		D64B52106E54423DA80A2373 /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F08C9D569D064B3CA89C9E98 /* Montserrat-Black.ttf */; };
 		E29AE09112A6747C13F845F5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		F693FB1B663840C9934418FB /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7DBB82A322D476D8037EEE8 /* Montserrat-SemiBold.ttf */; };
@@ -62,9 +62,9 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-mr_bat-mr_batTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mr_bat-mr_batTests.release.xcconfig"; path = "Target Support Files/Pods-mr_bat-mr_batTests/Pods-mr_bat-mr_batTests.release.xcconfig"; sourceTree = "<group>"; };
 		8C349BAC2E2D4595A7A3C4B2 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../assets/font/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		B7DBB82A322D476D8037EEE8 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../assets/font/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
-		C43D427B2D303BDD00E3336A /* mystical.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mystical.mp3; sourceTree = "<group>"; };
-		C43D427C2D303BDD00E3336A /* quite.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = quite.mp3; sourceTree = "<group>"; };
-		C43D427D2D303BDD00E3336A /* starry.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = starry.mp3; sourceTree = "<group>"; };
+		C46F5D8A2D5C9CCC0050254D /* mystical.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mystical.mp3; sourceTree = "<group>"; };
+		C46F5D8B2D5C9CCC0050254D /* quite.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = quite.mp3; sourceTree = "<group>"; };
+		C46F5D8C2D5C9CCC0050254D /* starry.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = starry.mp3; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F08C9D569D064B3CA89C9E98 /* Montserrat-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Black.ttf"; path = "../assets/font/Montserrat-Black.ttf"; sourceTree = "<group>"; };
 		FE766DC7B0E247C7967C59B9 /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Italic.ttf"; path = "../assets/font/Montserrat-Italic.ttf"; sourceTree = "<group>"; };
@@ -156,9 +156,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				C43D427B2D303BDD00E3336A /* mystical.mp3 */,
-				C43D427C2D303BDD00E3336A /* quite.mp3 */,
-				C43D427D2D303BDD00E3336A /* starry.mp3 */,
+				C46F5D8A2D5C9CCC0050254D /* mystical.mp3 */,
+				C46F5D8B2D5C9CCC0050254D /* quite.mp3 */,
+				C46F5D8C2D5C9CCC0050254D /* starry.mp3 */,
 				13B07FAE1A68108700A75B9A /* mr_bat */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* mr_batTests */,
@@ -285,13 +285,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C46F5D8D2D5C9CCC0050254D /* mystical.mp3 in Resources */,
+				C46F5D8E2D5C9CCC0050254D /* quite.mp3 in Resources */,
+				C46F5D8F2D5C9CCC0050254D /* starry.mp3 in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				E29AE09112A6747C13F845F5 /* PrivacyInfo.xcprivacy in Resources */,
 				D64B52106E54423DA80A2373 /* Montserrat-Black.ttf in Resources */,
-				C43D427E2D303BDD00E3336A /* quite.mp3 in Resources */,
-				C43D427F2D303BDD00E3336A /* starry.mp3 in Resources */,
-				C43D42802D303BDD00E3336A /* mystical.mp3 in Resources */,
 				A00CF62CFA4A424A90D3DC9F /* Montserrat-Bold.ttf in Resources */,
 				9496850EBFD44FB98D2AC6F4 /* Montserrat-ExtraBold.ttf in Resources */,
 				14D9881E79BE4089922569D2 /* Montserrat-Italic.ttf in Resources */,
@@ -485,7 +485,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.moodnight.app;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mr_bat.app/mr_bat";
 			};
@@ -509,7 +509,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.moodnight.app;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mr_bat.app/mr_bat";
 			};

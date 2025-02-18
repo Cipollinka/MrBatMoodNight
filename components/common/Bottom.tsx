@@ -18,7 +18,7 @@ export default function Bottom({children}: Props) {
         padding: 16,
         borderTopRightRadius: 42,
         borderTopLeftRadius: 42,
-        backgroundColor: '#1D3B5A',
+        backgroundColor: '#0A3068',
         borderTopWidth: 1,
         borderLeftWidth: 1,
         borderRightWidth: 1,

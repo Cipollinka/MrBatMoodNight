@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import React, {useEffect} from 'react';
 import Container from '@/components/Container';
 import Text from '@/components/common/Text';
@@ -10,6 +10,8 @@ import {Screens} from '@/models/nav';
 import {useCommonStore} from '@/stores/commonStore';
 import BottomBar from '@/components/BottomBar';
 import {MOOD_LABELS} from '@/helpers/labels';
+import Block from '@/components/common/Block';
+import {MOOD_ICONS} from '@/helpers/moodIcons';
 
 export default function MoodLoading() {
   const navigation = useNav();
@@ -19,23 +21,40 @@ export default function MoodLoading() {
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate(Screens.Mood_Timeline, {step: 1});
+      navigation.navigate(Screens.Mood_Meditation);
     }, 3000);
   }, []);
 
   return (
-    <Container bg="mystical_night">
-      <Bottom>
+    <Container bg="mystical_night" isLogoHidden>
+      <Block style={{flex: 1}}>
+        <View
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 22,
+            backgroundColor: '#9950E8',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderWidth: 3,
+            borderColor: '#fff',
+          }}>
+          {MOOD_ICONS?.[currentMood]}
+        </View>
         <Title>Youre choosen: {label}</Title>
 
-        <Text>Choosing content for you...</Text>
-
-        <View style={{marginTop: 24}}>
-          <Button title="Wait..." onPress={() => {}} />
+        <View>
+          <Image source={require('@/assets/images/loading.png')} />
         </View>
 
-        <BottomBar />
-      </Bottom>
+        <View style={{marginTop: 0}}>
+          <Button title="Wait..." variant="secondary" onPress={() => {}} />
+        </View>
+
+        <View style={{marginTop: 'auto'}}>
+          <BottomBar />
+        </View>
+      </Block>
     </Container>
   );
 }

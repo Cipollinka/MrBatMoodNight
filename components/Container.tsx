@@ -22,9 +22,15 @@ interface Props {
   children: React.ReactNode;
   bg?: keyof typeof backgrounds;
   ok?: boolean;
+  isLogoHidden?: boolean;
 }
 
-export default function Container({children, bg = 'greetings', ok}: Props) {
+export default function Container({
+  children,
+  bg = 'greetings',
+  ok,
+  isLogoHidden,
+}: Props) {
   const checkDayChange = useCommonStore(state => state.checkDayChange);
 
   useEffect(() => {
@@ -48,16 +54,18 @@ export default function Container({children, bg = 'greetings', ok}: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image
-        source={require('@/assets/images/logo.png')}
-        style={{
-          width: 321,
-          height: 100,
-          marginHorizontal: 'auto',
-          zIndex: 2,
-          marginTop: ok ? 10 : 'auto',
-        }}
-      />
+      {!isLogoHidden && (
+        <Image
+          source={require('@/assets/images/logo.png')}
+          style={{
+            width: 321,
+            height: 100,
+            marginHorizontal: 'auto',
+            zIndex: 2,
+            marginTop: ok ? 10 : 'auto',
+          }}
+        />
+      )}
       <Image
         style={[
           StyleSheet.absoluteFill,

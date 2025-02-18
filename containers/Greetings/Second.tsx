@@ -42,7 +42,7 @@ export default function Second() {
             title="Next"
             onPress={() => navigation.navigate(Screens.Greetings_Third)}
           />
-          <Button variant="secondary" title="Skip" onPress={skip} />
+          <Button variant="link" title="Skip" onPress={skip} />
         </View>
       </Bottom>
     </Container>

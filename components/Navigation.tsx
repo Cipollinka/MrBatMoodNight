@@ -7,7 +7,6 @@ import Second from '@/containers/Greetings/Second';
 import Third from '@/containers/Greetings/Third';
 import MoodSelect from '@/containers/Mood/Select';
 import MoodLoading from '@/containers/Mood/Loading';
-import MoodTimeline from '@/containers/Mood/Timeline';
 import MoodMeditation from '@/containers/Mood/Meditation';
 import MoodStory from '@/containers/Mood/Story';
 import MoodTracker from '@/containers/Mood/Tracker';
@@ -29,10 +28,16 @@ const AppNavigator = () => {
 
         <Stack.Screen name={Screens.Mood_Select} component={MoodSelect} />
         <Stack.Screen name={Screens.Mood_Loading} component={MoodLoading} />
-        <Stack.Screen name={Screens.Mood_Timeline} component={MoodTimeline} />
 
         <Stack.Screen name={Screens.Mood_Track} component={MoodTracker} />
         <Stack.Screen name={Screens.Mood_Finish} component={MoodFinish} />
+
+        <Stack.Screen
+          name={Screens.Mood_Meditation}
+          component={MoodMeditation}
+        />
+        <Stack.Screen name={Screens.Mood_NightStory} component={MoodStory} />
+        <Stack.Screen name={Screens.Bookmark} component={Saved} />
 
         <Stack.Screen name={Screens.Profile} component={Profile} />
       </Stack.Navigator>
