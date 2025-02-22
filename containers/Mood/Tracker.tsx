@@ -1,4 +1,4 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View, Animated} from 'react-native';
 import React, {useState} from 'react';
 import Container from '@/components/Container';
 import Text from '@/components/common/Text';
@@ -28,47 +28,76 @@ const options = [
 
 export default function MoodTracker() {
   const navigation = useNav();
-
   const [tracker, setTracker] = useState<Tracker | null>(null);
+  const [scaleAnim] = useState(() => options.map(() => new Animated.Value(1)));
 
   const updateMoodTracker = useCommonStore(state => state.updateMoodTracker);
 
+  const handleOptionPress = (value: Tracker, index: number) => {
+    Animated.sequence([
+      Animated.timing(scaleAnim[index], {
+        toValue: 0.95,
+        duration: 100,
+        useNativeDriver: true
+      }),
+      Animated.timing(scaleAnim[index], {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: true
+      })
+    ]).start();
+    setTracker(value);
+  };
+
   const handleSave = () => {
     if (!tracker) return;
-
     updateMoodTracker(tracker);
     navigation.navigate(Screens.Mood_Finish);
   };
 
   return (
     <Container>
-      <Block style={{marginVertical: 'auto'}}>
-        <Title>Mood Tracker</Title>
+      <Block style={{marginVertical: 'auto', alignItems: 'center'}}>
+        <Title style={styles.title}>Mood Tracker</Title>
 
         <Text
           fw="bold"
           fs={22}
-          style={{maxWidth: 280, textAlign: 'center', marginTop: 0}}>
-          How do you fell tonight?
+          style={styles.subtitle}>
+          How do you feel tonight?
         </Text>
 
-        <View style={{marginTop: 0}} />
+        <View style={styles.optionsContainer}>
+          {options.map((item, index) => {
+            const isSelected = tracker === item.value;
+            return (
+              <Animated.View
+                key={item.value}
+                style={{
+                  transform: [{ scale: scaleAnim[index] }]
+                }}>
+                <TouchableOpacity
+                  onPress={() => handleOptionPress(item.value, index)}
+                  activeOpacity={0.8}>
+                  <View style={[styles.item, isSelected && styles.selectedItem]}>
+                    <Text 
+                      fw={isSelected ? 'bold' : 'semibold'}
+                      style={[styles.itemText, isSelected && styles.selectedItemText]}>
+                      {item.label}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </Animated.View>
+            );
+          })}
+        </View>
 
-        {options.map(item => {
-          const isSelected = tracker === item.value;
-          return (
-            <TouchableOpacity
-              onPress={() => setTracker(item.value)}
-              key={item.value}>
-              <View style={[styles.item, isSelected && styles.selectedItem]}>
-                <Text fw={isSelected ? 'bold' : 'semibold'}>{item.label}</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-
-        <View style={{marginTop: 24}}>
-          <Button title="Save" onPress={handleSave} />
+        <View style={styles.buttonContainer}>
+          <Button 
+            title="Save" 
+            onPress={handleSave}
+            variant={tracker ? 'primary' : 'secondary'} 
+          />
         </View>
       </Block>
     </Container>
@@ -76,15 +105,42 @@ export default function MoodTracker() {
 }
 
 const styles = StyleSheet.create({
+  title: {
+    marginBottom: 16,
+    fontSize: 32,
+  },
+  subtitle: {
+    maxWidth: 280,
+    textAlign: 'center',
+    marginBottom: 32,
+    color: '#E8E8E8'
+  },
+  optionsContainer: {
+    gap: 16,
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    marginTop: 32,
+  },
   item: {
     width: 300,
     height: 58,
     borderRadius: 52,
-    backgroundColor: '#57A9FF',
+    backgroundColor: 'rgba(87, 169, 255, 0.8)',
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 2,
+    borderColor: 'transparent',
   },
   selectedItem: {
     backgroundColor: '#7EBD57',
+    borderColor: '#fff',
+  },
+  itemText: {
+    color: '#fff',
+    fontSize: 18,
+  },
+  selectedItemText: {
+    color: '#fff',
   },
 });

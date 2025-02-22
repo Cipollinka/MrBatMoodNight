@@ -16,30 +16,53 @@ import Profile from '@/containers/Profile/Profile';
 
 const Stack = createNativeStackNavigator<ParamsList>();
 
+const GreetingsNavigator = () => (
+  <Stack.Group screenOptions={{animation: 'slide_from_right'}}>
+    <Stack.Screen name={Screens.Greetings_First} component={First} />
+    <Stack.Screen name={Screens.Greetings_Second} component={Second} />
+    <Stack.Screen name={Screens.Greetings_Third} component={Third} />
+  </Stack.Group>
+);
+
+const MoodFlowNavigator = () => (
+  <Stack.Group screenOptions={{animation: 'fade_from_bottom'}}>
+    <Stack.Screen name={Screens.Mood_Select} component={MoodSelect} />
+    <Stack.Screen name={Screens.Mood_Loading} component={MoodLoading} />
+    <Stack.Screen name={Screens.Mood_Track} component={MoodTracker} />
+    <Stack.Screen name={Screens.Mood_Finish} component={MoodFinish} />
+    <Stack.Screen
+      name={Screens.Mood_Meditation}
+      component={MoodMeditation}
+      options={{animation: 'fade'}}
+    />
+    <Stack.Screen 
+      name={Screens.Mood_NightStory} 
+      component={MoodStory}
+      options={{animation: 'fade'}}
+    />
+  </Stack.Group>
+);
+
+const SettingsNavigator = () => (
+  <Stack.Group screenOptions={{animation: 'slide_from_bottom'}}>
+    <Stack.Screen name={Screens.Bookmark} component={Saved} />
+    <Stack.Screen name={Screens.Profile} component={Profile} />
+  </Stack.Group>
+);
+
 const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName={Screens.Greetings_First}
-        screenOptions={{headerShown: false}}>
-        <Stack.Screen name={Screens.Greetings_First} component={First} />
-        <Stack.Screen name={Screens.Greetings_Second} component={Second} />
-        <Stack.Screen name={Screens.Greetings_Third} component={Third} />
-
-        <Stack.Screen name={Screens.Mood_Select} component={MoodSelect} />
-        <Stack.Screen name={Screens.Mood_Loading} component={MoodLoading} />
-
-        <Stack.Screen name={Screens.Mood_Track} component={MoodTracker} />
-        <Stack.Screen name={Screens.Mood_Finish} component={MoodFinish} />
-
-        <Stack.Screen
-          name={Screens.Mood_Meditation}
-          component={MoodMeditation}
-        />
-        <Stack.Screen name={Screens.Mood_NightStory} component={MoodStory} />
-        <Stack.Screen name={Screens.Bookmark} component={Saved} />
-
-        <Stack.Screen name={Screens.Profile} component={Profile} />
+        screenOptions={{
+          headerShown: false,
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+        }}>
+        {GreetingsNavigator()}
+        {MoodFlowNavigator()}
+        {SettingsNavigator()}
       </Stack.Navigator>
     </NavigationContainer>
   );

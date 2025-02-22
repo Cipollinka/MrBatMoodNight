@@ -1,0 +1,43 @@
+{
+  "version": 1.0,
+  "projects": {
+    "mobile": {
+      "root": ".",
+      "sourceRoot": ".",
+      "projectType": "application",
+      "targets": {
+        "ios": {
+          "executor": "@react-native/ios",
+          "options": {
+            "xcodeProject": "ios/mr_bat.xcodeproj",
+            "scheme": "mr_bat"
+          }
+        },
+        "android": {
+          "executor": "@react-native/android",
+          "options": {
+            "gradleProject": "android"
+          }
+        }
+      }
+    },
+    "shared": {
+      "root": "shared",
+      "sourceRoot": "shared/src",
+      "projectType": "library"
+    },
+    "native-modules": {
+      "root": "native-modules",
+      "sourceRoot": "native-modules/src",
+      "projectType": "library",
+      "targets": {
+        "ios": {
+          "platform": "ios"
+        },
+        "android": {
+          "platform": "android"
+        }
+      }
+    }
+  }
+}

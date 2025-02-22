@@ -5,39 +5,60 @@ import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 
 interface State {
+  // User preferences
   isStartSkipped: boolean;
   setIsStartSkipped: (isStartSkipped: boolean) => void;
+  language: string;
+  setLanguage: (lang: string) => void;
+  notifications: boolean;
+  setNotifications: (enabled: boolean) => void;
 
+  // Mood tracking
   currentMood: Moods | null;
   setCurrentMood: (mood: Moods | null) => void;
-
   moodStories: Record<Moods, number>;
   updateMoodStory: (mood: Moods) => void;
 
+  // Story management
   favoriteStories: Record<Moods, number[]>;
   updateFavoriteStory: (mood: Moods, index: number) => void;
 
+  // Mood statistics
   moodTracker: Record<Tracker, number>;
   updateMoodTracker: (tracker: Tracker) => void;
+  weeklyStats: Record<string, Tracker>;
+  updateWeeklyStats: (date: string, tracker: Tracker) => void;
 
+  // Session state
   isFinished: boolean;
   setIsFinished: (isFinished: boolean) => void;
-
   currentStep: number;
   setCurrentStep: (step: number) => void;
-
   lastCheckedDate: string | null;
-  checkDayChange: () => void;
+  checkDayChange: () => boolean;
+
+  isTodayFinished: boolean;
+  setIsTodayFinished: (isFinished: boolean) => void;
 }
 
 export const useCommonStore = create(
   persist<State>(
     (set, get) => ({
+      isTodayFinished: false,
+      setIsTodayFinished: isFinished => {
+        set({isTodayFinished: isFinished});
+      },
+      // User preferences
       isStartSkipped: false,
       setIsStartSkipped: isStartSkipped => {
         set({isStartSkipped});
       },
+      language: 'en',
+      setLanguage: lang => set({language: lang}),
+      notifications: true,
+      setNotifications: enabled => set({notifications: enabled}),
 
+      // Mood tracking
       currentMood: null,
       setCurrentMood: mood => {
         set({currentMood: mood});
@@ -56,6 +77,7 @@ export const useCommonStore = create(
         });
       },
 
+      // Story management
       favoriteStories: {
         [Moods.Mystical]: [],
         [Moods.Quite]: [],
@@ -82,30 +104,44 @@ export const useCommonStore = create(
         });
       },
 
+      // Mood statistics
       moodTracker: {
         [Tracker.Nice]: 0,
         [Tracker.Normal]: 0,
         [Tracker.Terrible]: 0,
       },
       updateMoodTracker: tracker => {
+        const today = dayjs().format('YYYY-MM-DD');
         set({
           moodTracker: {
             ...get().moodTracker,
             [tracker]: get().moodTracker[tracker] + 1,
           },
+          weeklyStats: {
+            ...get().weeklyStats,
+            [today]: tracker,
+          },
+        });
+      },
+      weeklyStats: {},
+      updateWeeklyStats: (date, tracker) => {
+        set({
+          weeklyStats: {
+            ...get().weeklyStats,
+            [date]: tracker,
+          },
         });
       },
 
+      // Session state
       isFinished: false,
       setIsFinished: isFinished => {
         set({isFinished});
       },
-
       currentStep: 1,
       setCurrentStep: step => {
         set({currentStep: step});
       },
-
       lastCheckedDate: null,
       checkDayChange: () => {
         const today = dayjs().format('YYYY-MM-DD');
@@ -117,7 +153,11 @@ export const useCommonStore = create(
             isFinished: false,
             currentMood: null,
             lastCheckedDate: today,
+            isTodayFinished: false,
           });
+          return true;
+        } else {
+          return false;
         }
       },
     }),

@@ -1,4 +1,4 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Container from '@/components/Container';
 import {useCommonStore} from '@/stores/commonStore';
@@ -33,49 +33,42 @@ export default function MoodMeditation() {
   const musicFile = musicPaths[currentMood];
 
   useEffect(() => {
+    Sound.setCategory('Playback');
+    const newSound = new Sound(musicFile, Sound.MAIN_BUNDLE, error => {
+      if (error) {
+        console.error('Error loading sound:', error);
+        return;
+      }
+    });
+    setSound(newSound);
+
     return () => {
       if (sound) {
         sound.release();
       }
     };
-  }, [sound]);
+  }, []);
 
   useEffect(() => {
-    if (isPlaying) {
+    if (isPlaying && sound) {
       const interval = setInterval(() => {
-        if (sound) {
-          sound.getCurrentTime(seconds => setCurrentTime(seconds));
-        }
+        sound.getCurrentTime(seconds => setCurrentTime(seconds));
       }, 1000);
       return () => clearInterval(interval);
     }
   }, [isPlaying, sound]);
 
   const togglePlayback = () => {
-    if (!sound) {
-      const newSound = new Sound(musicFile, Sound.MAIN_BUNDLE, error => {
-        if (error) {
-          console.error('Failed to load sound', error);
-          return;
-        }
-        setSound(newSound);
-        newSound.play(() => {
-          setIsPlaying(false);
-          setCurrentTime(0);
-          newSound.setCurrentTime(0);
-        });
-      });
-      setSound(newSound);
+    if (!sound) return;
+
+    if (isPlaying) {
+      sound.pause();
     } else {
-      if (isPlaying) {
-        sound.pause();
-      } else {
-        sound.play(() => {
-          setIsPlaying(false);
-          setCurrentTime(0);
-          sound.setCurrentTime(0);
-        });
-      }
+      sound.play(success => {
+        if (!success) {
+          console.error('Playback failed');
+        }
+      });
     }
     setIsPlaying(prev => !prev);
   };
@@ -92,46 +85,38 @@ export default function MoodMeditation() {
     <Container ok bg={bgToMood[currentMood]}>
       <View style={styles.container}>
         <View style={{marginTop: 90}} />
-        <Text fs={24} fw="semibold">
+        <Text fs={24} fw="semibold" style={styles.meditationTitle}>
           {label} Meditation
         </Text>
-        <View
-          style={{
-            marginTop: 16,
-            paddingHorizontal: 25,
-            paddingVertical: 4,
-            borderRadius: 9999,
-            borderWidth: 1,
-            borderColor: '#fff',
-          }}>
+        <View style={styles.timerContainer}>
           <Text fs={30} fw="medium">
             {formatTime(currentTime)}
           </Text>
-        </View>
-
-        <TouchableOpacity onPress={togglePlayback} style={{marginTop: '35%'}}>
-          <View style={styles.action}>
-            {isPlaying && (
-              <View style={styles.pauseContainer}>
-                <View style={styles.pauseItem} />
-                <View style={styles.pauseItem} />
-              </View>
-            )}
-            {!isPlaying && <PlayIcon />}
+          <View style={styles.progressBar}>
+            <Animated.View
+              style={[
+                styles.progressFill,
+                {width: `${(currentTime / 180) * 100}%`},
+              ]}
+            />
           </View>
+        </View>
+        <TouchableOpacity
+          style={styles.playButton}
+          onPress={togglePlayback}
+          activeOpacity={0.7}>
+          <PlayIcon width={24} height={24} />
         </TouchableOpacity>
 
-        <View style={{marginTop: 48}} />
-        <Button
-          title="Skip this step"
-          variant="secondary"
-          onPress={() => {
-            if (sound) {
-              sound.stop(() => sound.release());
-            }
-            nav.navigate(Screens.Mood_NightStory);
-          }}
-        />
+        <View>
+          <Button
+            title="Finish Meditation"
+            onPress={() => {
+              sound?.pause();
+              nav.navigate(Screens.Mood_NightStory);
+            }}
+          />
+        </View>
       </View>
     </Container>
   );
@@ -139,25 +124,35 @@ export default function MoodMeditation() {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     flex: 1,
+    alignItems: 'center',
   },
-  action: {
-    width: 71,
-    height: 71,
-    borderRadius: 9999,
-    backgroundColor: '#fff',
+  meditationTitle: {
+    marginBottom: 40,
+  },
+  timerContainer: {
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  progressBar: {
+    width: 200,
+    height: 4,
+    backgroundColor: '#E0E0E0',
+    borderRadius: 2,
+    marginTop: 10,
+    overflow: 'hidden',
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: '#000',
+  },
+  playButton: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: '#000',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  pauseContainer: {
-    flexDirection: 'row',
-    gap: 7,
-  },
-  pauseItem: {
-    width: 5,
-    height: 20,
-    backgroundColor: '#57A9FF',
-    borderRadius: 9999,
+    marginBottom: 40,
   },
 });

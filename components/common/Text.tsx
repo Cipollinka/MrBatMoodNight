@@ -1,42 +1,49 @@
 import React from 'react';
 import {Text as RNText, StyleSheet, TextStyle, StyleProp} from 'react-native';
+import theme from '../theme';
 
-const fontWeights = {
-  black: 'Montserrat-Black',
-  bold: 'Montserrat-Bold',
-  extrabold: 'Montserrat-ExtraBold',
-  light: 'Montserrat-Light',
-  medium: 'Montserrat-Medium',
-  regular: 'Montserrat-Regular',
-  semibold: 'Montserrat-SemiBold',
-};
+interface TextProps {
+  style?: StyleProp<TextStyle>;
+  fw?: keyof typeof theme.typography.fontFamily;
+  fs?: keyof typeof theme.typography.fontSize | number;
+  color?: keyof typeof theme.colors | string;
+  children: React.ReactNode;
+  numberOfLines?: number;
+  ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
+}
 
 const Text = ({
   style,
   fw = 'regular',
-  fs = 16,
+  fs = 'base',
+  color = 'text',
+  children,
   ...props
-}: {
-  style?: StyleProp<TextStyle>;
-  fw?: keyof typeof fontWeights;
-  fs?: number;
-  children: React.ReactNode;
-}) => {
+}: TextProps) => {
+  const fontSize = typeof fs === 'string' ? theme.typography.fontSize[fs] : fs;
+  const textColor = color in theme.colors ? theme.colors[color as keyof typeof theme.colors] : color;
+
   return (
     <RNText
       style={[
         styles.text,
+        {
+          fontFamily: theme.typography.fontFamily[fw],
+          fontSize,
+          color: textColor,
+        },
         style,
-        {fontFamily: fontWeights[fw], fontSize: fs || 16},
       ]}
       {...props}
-    />
+    >
+      {children}
+    </RNText>
   );
 };
 
 const styles = StyleSheet.create({
   text: {
-    color: '#fff',
+    color: theme.colors.text,
   },
 });
 

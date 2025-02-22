@@ -10,11 +10,17 @@ import {TRACKER_LABELS} from '@/helpers/labels';
 import Button from '@/components/common/Button';
 import BottomBar from '@/components/BottomBar';
 
-const chartData = [
+interface ChartData {
+  color: string;
+  mood: Tracker;
+}
+
+const chartData: ChartData[] = [
   {color: '#7EBD57', mood: Tracker.Nice},
   {color: '#FFD21D', mood: Tracker.Normal},
   {color: '#E85050', mood: Tracker.Terrible},
 ];
+
 const totalChartWidth = 284;
 
 export default function Profile() {
@@ -30,8 +36,8 @@ export default function Profile() {
   const handleShare = () => {
     const text = entries
       .map(([key, value]) => {
-        const persent = Math.round((value / totalDays) * 100);
-        return `${persent}% - ${TRACKER_LABELS[key]}`;
+        const percent = Math.round((value / totalDays) * 100);
+        return `${percent}% - ${TRACKER_LABELS[key]}`;
       })
       .join('\n');
 
@@ -45,45 +51,33 @@ export default function Profile() {
     <Container>
       <Bottom>
         <Title>My Profile</Title>
-        <Text fw="medium" fs={18} style={{marginTop: 12}}>
+        <Text fw="medium" fs={18} style={styles.subtitle}>
           Mood tracker statistic
         </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            gap: 6,
-            marginHorizontal: 'auto',
-            marginTop: 8,
-          }}>
+        <View style={styles.chartContainer}>
           {chartData.map(data => {
-            const width =
-              totalChartWidth * (moodTracker[data.mood] / totalDays);
-            console.log('width', width);
-
+            const width = totalChartWidth * (moodTracker[data.mood] / totalDays);
             return (
               <View
                 key={data.mood}
-                style={[
-                  styles.chartDefaultItem,
-                  {width, backgroundColor: data.color},
-                ]}
+                style={[styles.chartItem, {width, backgroundColor: data.color}]}
               />
             );
           })}
         </View>
 
-        <View style={{gap: 12, marginTop: 4, width: '80%', marginBottom: 12}}>
+        <View style={styles.statisticsContainer}>
           {entries.map(([key, value]) => {
-            const persent = Math.round((value / totalDays) * 100);
+            const percent = Math.round((value / totalDays) * 100);
             return (
               <Text key={key} fw="medium" fs={18}>
-                {persent}% - {TRACKER_LABELS[key]}
+                {percent}% - {TRACKER_LABELS[key]}
               </Text>
             );
           })}
         </View>
 
-        <View style={{marginBottom: 50}}>
+        <View style={styles.buttonContainer}>
           <Button title="Share" variant="secondary" onPress={handleShare} />
         </View>
 
@@ -94,8 +88,26 @@ export default function Profile() {
 }
 
 const styles = StyleSheet.create({
-  chartDefaultItem: {
+  subtitle: {
+    marginTop: 12,
+  },
+  chartContainer: {
+    flexDirection: 'row',
+    gap: 6,
+    marginHorizontal: 'auto',
+    marginTop: 8,
+  },
+  chartItem: {
     height: 72,
     borderRadius: 8,
+  },
+  statisticsContainer: {
+    gap: 12,
+    marginTop: 4,
+    width: '80%',
+    marginBottom: 12,
+  },
+  buttonContainer: {
+    marginBottom: 50,
   },
 });

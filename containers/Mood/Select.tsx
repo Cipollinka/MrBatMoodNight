@@ -1,4 +1,4 @@
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View, Animated} from 'react-native';
 import React, {useLayoutEffect} from 'react';
 import Container from '@/components/Container';
 import Text from '@/components/common/Text';
@@ -15,7 +15,17 @@ import QuiteIcon from '@/assets/icons/mood/quite.svg';
 import MysticalIcon from '@/assets/icons/mood/mystical.svg';
 import StarryIcon from '@/assets/icons/mood/starry.svg';
 
-const options = [
+interface MoodOption {
+  label: string;
+  value: Moods;
+  Icon: React.FC<{
+    width?: number;
+    height?: number;
+    color?: string;
+  }>;
+}
+
+const options: MoodOption[] = [
   {
     label: 'Quite moonlit evening',
     value: Moods.Quite,
@@ -35,56 +45,78 @@ const options = [
 
 export default function MoodSelect() {
   const navigation = useNav();
-
   const currentMood = useCommonStore(state => state.currentMood);
   const setCurrentMood = useCommonStore(state => state.setCurrentMood);
+  const isTodayFinished = useCommonStore(state => state.isTodayFinished);
+
+  const [scaleAnim] = React.useState(() =>
+    options.map(() => new Animated.Value(1)),
+  );
+
+  const handlePress = (value: Moods, index: number) => {
+    Animated.sequence([
+      Animated.timing(scaleAnim[index], {
+        toValue: 0.9,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(scaleAnim[index], {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ]).start();
+    setCurrentMood(value);
+  };
 
   useLayoutEffect(() => {
-    if (currentMood) {
+    if (isTodayFinished) {
+      navigation.navigate(Screens.Mood_Finish);
+    } else if (currentMood) {
       navigation.navigate(Screens.Mood_Loading);
     }
-  }, []);
+  }, [currentMood, navigation]);
 
   return (
     <Container isLogoHidden>
-      <View
-        style={{
-          marginTop: 'auto',
-          marginHorizontal: -1,
-          padding: 16,
-          alignItems: 'center',
-          gap: 12,
-        }}>
+      <View style={styles.container}>
         <Title>Choose your mood of the night:</Title>
 
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            gap: 12,
-          }}>
-          {options.map(({Icon, label, value}) => {
+        <View style={styles.optionsContainer}>
+          {options.map(({Icon, label, value}, index) => {
             const isSelected = currentMood === value;
             return (
-              <TouchableOpacity
-                onPress={() => setCurrentMood(value)}
-                key={value}>
-                <View style={[styles.item, isSelected && styles.selectedItem]}>
-                  <Icon />
-                  <Text
-                    fw={isSelected ? 'bold' : 'semibold'}
-                    style={{textAlign: 'center'}}>
-                    {label}
-                  </Text>
-                </View>
-              </TouchableOpacity>
+              <Animated.View
+                key={value}
+                style={{
+                  transform: [{scale: scaleAnim[index]}],
+                }}>
+                <TouchableOpacity
+                  onPress={() => handlePress(value, index)}
+                  activeOpacity={0.8}>
+                  <View
+                    style={[styles.item, isSelected && styles.selectedItem]}>
+                    <Icon
+                      width={48}
+                      height={48}
+                      color={isSelected ? '#fff' : '#333'}
+                    />
+                    <Text
+                      fw={isSelected ? 'bold' : 'semibold'}
+                      style={[
+                        styles.itemText,
+                        isSelected && styles.selectedItemText,
+                      ]}>
+                      {label}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </Animated.View>
             );
           })}
         </View>
 
-        <View style={{marginTop: 24}}>
+        <View style={styles.buttonContainer}>
           <Button
             variant="secondary"
             title="Let's go!"
@@ -99,17 +131,58 @@ export default function MoodSelect() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 60,
+    padding: 16,
+    alignItems: 'center',
+    gap: 32,
+  },
+  container: {
+    marginTop: 'auto',
+    marginHorizontal: -1,
+    padding: 16,
+    alignItems: 'center',
+    gap: 12,
+  },
+  optionsContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  buttonContainer: {
+    marginTop: 24,
+  },
   item: {
-    width: 128,
-    height: 128,
-    borderRadius: 22,
-    backgroundColor: '#57A9FF',
+    width: 140,
+    height: 140,
+    borderRadius: 24,
+    backgroundColor: '#E8F1FF',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   selectedItem: {
     borderWidth: 3,
     borderColor: '#fff',
     backgroundColor: '#9950E8',
+  },
+  itemText: {
+    textAlign: 'center',
+    color: '#333',
+    marginTop: 8,
+  },
+  selectedItemText: {
+    color: '#fff',
   },
 });
