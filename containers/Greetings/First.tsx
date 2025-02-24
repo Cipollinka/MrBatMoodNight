@@ -9,6 +9,7 @@ import {useNav} from '@/hooks/useNav';
 import {Screens} from '@/models/nav';
 import {useCommonStore} from '@/stores/commonStore';
 import useSkip from '@/hooks/useSkip';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function First() {
   const navigation = useNav();

@@ -17,6 +17,7 @@ import {Moods} from '@/models/common';
 
 import ShareIcon from '@/assets/icons/share.svg';
 import BookmarkIcon from '@/assets/icons/bookmark.svg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Story {
   title: string;
@@ -64,6 +65,11 @@ export default function Saved() {
     state => state.updateFavoriteStory,
   );
 
+  const isEmpty = useMemo(
+    () => Object.values(favoriteStories).length > 0,
+    [favoriteStories],
+  );
+
   const storiesList = useMemo(
     () =>
       Object.entries(stories).reduce<Story[]>((acc, [key, value]) => {
@@ -80,30 +86,35 @@ export default function Saved() {
       }, []),
     [favoriteStories],
   );
-
+  // AsyncStorage.clear();
   return (
     <Container>
       <Bottom>
         <Title>Saved Stories</Title>
 
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.scrollContent}>
-          {storiesList.map((story, index) => (
-            <StoryItem
-              key={`${story.title}-${index}`}
-              story={story}
-              onSavePress={() =>
-                story.mood &&
-                updateFavoriteStory(
-                  story.mood,
-                  favoriteStories[story.mood][index],
-                )
-              }
-            />
-          ))}
-        </ScrollView>
+        {isEmpty && (
+          <Text style={{marginVertical: 20}}>There are no saved stories</Text>
+        )}
 
+        {!isEmpty && (
+          <ScrollView
+            style={styles.scrollView}
+            contentContainerStyle={styles.scrollContent}>
+            {storiesList.map((story, index) => (
+              <StoryItem
+                key={`${story.title}-${index}`}
+                story={story}
+                onSavePress={() =>
+                  story.mood &&
+                  updateFavoriteStory(
+                    story.mood,
+                    favoriteStories[story.mood][index],
+                  )
+                }
+              />
+            ))}
+          </ScrollView>
+        )}
         <BottomBar />
       </Bottom>
     </Container>

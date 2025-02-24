@@ -10,6 +10,7 @@ import {useNav} from '@/hooks/useNav';
 import {Screens} from '@/models/nav';
 import {Moods} from '@/models/common';
 import Sound from 'react-native-sound';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const musicPaths = {
   Mystical: 'mystical.mp3',

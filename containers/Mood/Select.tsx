@@ -120,6 +120,7 @@ export default function MoodSelect() {
           <Button
             variant="secondary"
             title="Let's go!"
+            disabled={!currentMood}
             onPress={() => navigation.navigate(Screens.Mood_Loading)}
           />
         </View>

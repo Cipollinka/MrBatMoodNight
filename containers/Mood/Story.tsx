@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     padding: 24,
+    paddingBottom: 0,
     borderRadius: 20,
   },
   storyTitle: {

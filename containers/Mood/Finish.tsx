@@ -6,6 +6,7 @@ import Title from '@/components/common/Title';
 import Text from '@/components/common/Text';
 import {Moods} from '@/models/common';
 import {useCommonStore} from '@/stores/commonStore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const bgToMood = {
   [Moods.Mystical]: 'meditation_mystical',
@@ -17,7 +18,7 @@ export default function MoodFinish() {
   const currentMood = useCommonStore(state => state.currentMood);
   const setIsFinished = useCommonStore(state => state.setIsFinished);
   const setIsTodayFinished = useCommonStore(state => state.setIsTodayFinished);
-
+  AsyncStorage.clear();
   useEffect(() => {
     setIsFinished(true);
     setIsTodayFinished(true);
