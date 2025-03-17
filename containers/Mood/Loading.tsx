@@ -26,7 +26,7 @@ export default function MoodLoading() {
   }, []);
 
   return (
-    <Container bg="mystical_night" isLogoHidden>
+    <Container bg="bg" isLogoHidden>
       <Block style={{flex: 1}}>
         <View
           style={{

@@ -19,9 +19,9 @@ const musicPaths = {
 };
 
 const bgToMood = {
-  [Moods.Mystical]: 'meditation_mystical',
-  [Moods.Quite]: 'meditation_quite',
-  [Moods.Starry]: 'meditation_starry',
+  [Moods.Mystical]: 'bg',
+  [Moods.Quite]: 'bg',
+  [Moods.Starry]: 'bg',
 };
 
 export default function MoodMeditation() {

@@ -9,13 +9,13 @@ import {
 } from 'react-native';
 
 const backgrounds = {
-  greetings: require('@/assets/images/backgrounds/greetings-bg.png'),
-  mystical_night: require('@/assets/images/backgrounds/mystical_night.png'),
-  quite_moonlit: require('@/assets/images/backgrounds/quiet_moonlight.png'),
-  starry_sky: require('@/assets/images/backgrounds/starry_sky.png'),
-  meditation_mystical: require('@/assets/images/backgrounds/meditation_mystical.png'),
-  meditation_quite: require('@/assets/images/backgrounds/meditation_quite.png'),
-  meditation_starry: require('@/assets/images/backgrounds/meditation_starry.png'),
+  greetings: require('@/assets/images/backgrounds/bg.png'),
+  bg: require('@/assets/images/backgrounds/bg.png'),
+  quite_moonlit: require('@/assets/images/backgrounds/bg.png'),
+  bg: require('@/assets/images/backgrounds/bg.png'),
+  bg: require('@/assets/images/backgrounds/bg.png'),
+  bg: require('@/assets/images/backgrounds/bg.png'),
+  bg: require('@/assets/images/backgrounds/bg.png'),
 };
 
 interface Props {

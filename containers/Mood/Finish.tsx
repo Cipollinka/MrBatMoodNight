@@ -9,9 +9,9 @@ import {useCommonStore} from '@/stores/commonStore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const bgToMood = {
-  [Moods.Mystical]: 'meditation_mystical',
-  [Moods.Quite]: 'meditation_quite',
-  [Moods.Starry]: 'meditation_starry',
+  [Moods.Mystical]: 'bg',
+  [Moods.Quite]: 'bg',
+  [Moods.Starry]: 'bg',
 };
 
 export default function MoodFinish() {
